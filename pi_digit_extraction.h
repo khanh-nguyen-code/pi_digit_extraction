@@ -44,7 +44,6 @@ namespace extraction {
     }
 
 
-    /*
     float power_frac(int a, int n) {
         // return a^-n
         float out = 1.0;
@@ -53,26 +52,14 @@ namespace extraction {
         }
         return out;
     }
-    */
-    float power_frac(int a, int n) {
-        // return a^-n
-        float out = 1.0;
-        while (n > 0) {
-            if (n % 2 == 1) {
-                out /= float(a);
-            }
-            n /= 2;
-            a = a * a;
-        }
-        return out;
-    }
 
     float fraction(float x) {
         return x - std::floor(x);
     }
 
-    float sum_x(int n, int x, float eps = 1e-6) {
+    float sum_x(int n, int x, float eps = 0) {
         // return the fractional part of  16^n \Sigma_{k=0}^{\infty} \frac{1}{16^k (8k+x)} = 16^n s_x
+        // finite sum
         float s1 = 0.0;
         for (int k = 0; k <= n; k++) {
             int numerator = power_mod(16, n - k, 8 * k + x);
@@ -81,6 +68,7 @@ namespace extraction {
             s1 += term;
             s1 = fraction(s1);
         }
+        // infinite sum
         float s2 = 0.0;
         for (int k = n + 1;; k++) {
             float numerator = power_frac(16, -(n - k));
