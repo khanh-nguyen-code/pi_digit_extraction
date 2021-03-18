@@ -61,23 +61,27 @@ namespace extraction {
         // return the fractional part of  16^n \Sigma_{k=0}^{\infty} \frac{1}{16^k (8k+x)} = 16^n s_x
         // finite sum
         float s1 = 0.0;
-        for (int k = 0; k <= n; k++) {
-            int numerator = power_mod(16, n - k, 8 * k + x);
-            int denominator = 8 * k + x;
-            float term = float(numerator) / float(denominator);
-            s1 += term;
-            s1 = fraction(s1);
+        {
+            for (int k = 0; k <= n; k++) {
+                int numerator = power_mod(16, n - k, 8 * k + x);
+                int denominator = 8 * k + x;
+                float term = float(numerator) / float(denominator);
+                s1 += term;
+                s1 = fraction(s1);
+            }
         }
         // infinite sum
         float s2 = 0.0;
-        for (int k = n + 1;; k++) {
-            float numerator = power_frac(16, -(n - k));
-            int denominator = 8 * k + x;
-            float term = float(numerator) / float(denominator);
-            if (term <= eps) {
-                break;
+        {
+            for (int k = n + 1;; k++) {
+                float numerator = power_frac(16, -(n - k));
+                int denominator = 8 * k + x;
+                float term = float(numerator) / float(denominator);
+                if (term <= eps) {
+                    break;
+                }
+                s2 += term;
             }
-            s2 += term;
         }
         return fraction(s1 + s2);
     }
