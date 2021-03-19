@@ -15,12 +15,30 @@
 #include <cmath>
 
 namespace extraction {
+    /*
     int power_mod(int a, int n, int p) {
         // return a^n mod p
         int out = 1;
         for (int i = 0; i < n; i++) {
             out *= a;
             out = out % p;
+        }
+        return out;
+    }
+    */
+    int power_mod(int a, int n, int p) {
+        // return a^n mod p
+        int out = 1;
+        a = a % p;
+        if (a == 0) {
+            return 0;
+        }
+        while (n > 0) {
+            if (n % 2 == 1) {
+                out = (out * a) % p;
+            }
+            n /= 2;
+            a = (a * a) % p;
         }
         return out;
     }
