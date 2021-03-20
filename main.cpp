@@ -8,7 +8,7 @@ const std::array<std::string, 16> int2hex = {"0", "1", "2", "3", "4", "5", "6", 
 
 int main() {
     int n = 0;
-    while (n <= 1000) {
+    while (n <= 100) {
         int digit = extraction::nth_digit_hex(n);
         std::printf("%s", int2hex[digit].c_str());
         //std::fflush(stdout);
