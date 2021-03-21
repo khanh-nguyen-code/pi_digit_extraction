@@ -7,7 +7,7 @@
 
 /* pi digit extraction
  * Given BPP formula
- * \pi = \Sigma_{k=0}^{\infty} \frac{1}{16^k} (\frac{4}{8k+1} - \frac{2}{8k+4} - \frac{1}{8k+5} - \frac{1}{8k+6})
+ * \pi = \sum_{k=0}^{\infty} \frac{1}{16^k} (\frac{4}{8k+1} - \frac{2}{8k+4} - \frac{1}{8k+5} - \frac{1}{8k+6})
  * or
  * \pi = 4 s_1 - 2 s_4 - s_5 - s_6
  */
