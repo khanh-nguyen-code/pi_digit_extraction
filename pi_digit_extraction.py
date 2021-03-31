@@ -44,10 +44,39 @@ def nth_digit_hex(n: int) -> int:
     return digit
 
 
+def pi_bbp():
+    """
+    Conjectured BBP generator of hex digits of pi
+    https://possiblywrong.wordpress.com/2017/09/30/digits-of-pi-and-python-generators/
+    :return:
+    """
+    a, b = 0, 1
+    k = 0
+    while True:
+        ak, bk = (120 * k ** 2 + 151 * k + 47,
+                  512 * k ** 4 + 1024 * k ** 3 + 712 * k ** 2 + 194 * k + 15)
+        a, b = (16 * a * bk + ak * b, b * bk)
+        digit, a = divmod(a, b)
+        yield digit
+        k = k + 1
+
+
 if __name__ == "__main__":
     int2hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
+    import time
+
+    t1 = time.time()
     n = 0
-    while n <= 1000:
+    while n < 100:
         digit = nth_digit_hex(n)
-        print(f"{n} -> {int2hex[digit]}")
+        print(int2hex[digit], end="")
         n += 1
+    t2 = time.time()
+    print(f"\nelapsed time: {t2 - t1}")
+    t1 = time.time()
+    for n, digit in enumerate(pi_bbp()):
+        if n >= 100:
+            break
+        print(int2hex[digit], end="")
+    t2 = time.time()
+    print(f"\nelapsed time: {t2 - t1}")
