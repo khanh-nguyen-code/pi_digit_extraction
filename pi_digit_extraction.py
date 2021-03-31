@@ -79,7 +79,8 @@ def pi_gibbons(base=10):
                                 (q * (7 * k + 2) + r * l) // (t * l), l + 2)
 
 
-def hex2dec(hex_list: List[int], length: int) -> Iterator[int]:
+
+def hex2dec(hex_list: List[int]) -> Iterator[int]:
     """
     multiply the hex by 10, the result before the decimal point should be the same
     let x = 0.h1h2h3h4 be the hexadecimal representation
@@ -93,10 +94,10 @@ def hex2dec(hex_list: List[int], length: int) -> Iterator[int]:
     :return:
     """
 
-    def adder3(a: int, b: int, c: int) -> Tuple[int, int]:
-        return divmod(a + b + c, 16)
-
     def canvas_add(list1: List[int], list2: List[int]):
+        def adder3(a: int, b: int, c: int) -> Tuple[int, int]:
+            return divmod(a + b + c, 16)
+
         carry = 0
         for i in range(len(list1) - 1, -1, -1):
             carry, list1[i] = adder3(list1[i], list2[i], carry)
@@ -109,14 +110,27 @@ def hex2dec(hex_list: List[int], length: int) -> Iterator[int]:
             carry += canvas_add(hex_list, copied)
         return carry
 
-    for _ in range(length):
+    while True:
         yield mul10(hex_list)
 
 
 if __name__ == "__main__":
     int2hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
     hex_list = []
-    for n in range(10):
+    for n in range(20):
         hex_list.append(nth_digit_hex(n))
-    for digit in hex2dec(hex_list, 10):
-        print(digit, end="", flush=True)
+
+    hex_list_lower = [*hex_list, 0]
+    hex_list_upper = [*hex_list, 15]
+
+    dec_lower = hex2dec(hex_list_lower)
+    dec_upper = hex2dec(hex_list_upper)
+
+    print("3.", end="", flush=True)
+    while True:
+        digit_lower = next(dec_lower)
+        digit_upper = next(dec_upper)
+        if digit_lower != digit_upper:
+            break
+        print(digit_lower, end="", flush=True)
+    print()
