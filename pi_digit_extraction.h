@@ -28,6 +28,9 @@ namespace extraction {
     */
     int power_mod(int a, int n, int p) {
         // return a^n mod p
+        if (n == 0) {
+            return 1;
+        }
         int out = 1;
         a = a % p;
         if (a == 0) {
