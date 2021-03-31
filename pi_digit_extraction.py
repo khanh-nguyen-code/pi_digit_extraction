@@ -3,17 +3,18 @@
 """
 pi digit extraction
 Given BPP formula
-\pi = \sum_{k=0}^{\infty} \frac{1}{16^k} (\frac{4}{8k+1} - \frac{2}{8k+4} - \frac{1}{8k+5} - \frac{1}{8k+6})
-or
 \pi = 4 s_1 - 2 s_4 - s_5 - s_6
+where s_x = \sum_{k=0}^{\infty} \frac{16^{-k}}{8k+x}
 """
+
 
 def sum_x(n: int, x: int, eps: float = 1e-6) -> float:
     """
     :param n:
     :param x:
     :param eps:
-    :return: the fractional part of  16^n \Sigma_{k=0}^{\infty} \frac{1}{16^k (8k+x)} = 16^n s_x
+    :return: the fractional part of
+    16^n s_x = 16^n \sum_{k=0}^{\infty} \frac{1}{16^k (8k+x)}
     """
     k = 0
     # finite sum
