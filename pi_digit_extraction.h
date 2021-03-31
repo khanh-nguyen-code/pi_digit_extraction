@@ -19,6 +19,8 @@ namespace extraction {
 
     uint multiply_mod(uint a, uint b, uint p) {
         // return a*b mod p
+        return a*b % p;
+        // extra
         uint out = 0;
         a = a % p;
         b = b % p;
@@ -34,6 +36,8 @@ namespace extraction {
 
     uint power_mod(uint a, uint n, uint p) {
         // return a^n mod p
+        return uint(std::pow(a, n)) % p;
+        // extra
         if (n == 0) {
             return 1;
         }
@@ -44,12 +48,12 @@ namespace extraction {
         }
         while (n > 0) {
             if (n % 2 == 1) {
-                // out = (out * a) % p;
-                out = multiply_mod(out, a, p);
+                out = (out * a) % p;
+                // out = multiply_mod(out, a, p);
             }
             n /= 2;
-            // a = (a * a) % p;
-            a = multiply_mod(a, a, p);
+            a = (a * a) % p;
+            // a = multiply_mod(a, a, p);
         }
         return out;
     }
