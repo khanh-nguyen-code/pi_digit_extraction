@@ -60,6 +60,23 @@ def pi_bbp():
         yield digit
         k = k + 1
 
+def pi_gibbons(base=10):
+    """
+    Gibbons spigot generator of digits of pi in given base.
+    https://possiblywrong.wordpress.com/2017/09/30/digits-of-pi-and-python-generators/
+    :param base:
+    :return:
+    """
+    q, r, t, k, n, l = 1, 0, 1, 1, 3, 3
+    while True:
+        if 4 * q + r - t < n * t:
+            yield n
+            q, r, t, k, n, l = (base * q, base * (r - n * t), t, k,
+                                (base * (3 * q + r)) // t - base * n, l)
+        else:
+            q, r, t, k, n, l = (q * k, (2 * q + r) * l, t * l, k + 1,
+                                (q * (7 * k + 2) + r * l) // (t * l), l + 2)
+
 
 if __name__ == "__main__":
     int2hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
