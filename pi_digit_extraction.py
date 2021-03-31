@@ -60,6 +60,7 @@ def pi_bbp():
         yield digit
         k = k + 1
 
+
 def pi_gibbons(base=10):
     """
     Gibbons spigot generator of digits of pi in given base.
@@ -81,19 +82,14 @@ def pi_gibbons(base=10):
 if __name__ == "__main__":
     int2hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
     import time
+    import matplotlib.pyplot as plt
+    t = []
+    N = 1000
+    for n in range(N):
+        t1 = time.time()
+        nth_digit_hex(n)
+        t2 = time.time()
+        t.append(t2-t1)
 
-    t1 = time.time()
-    n = 0
-    while n < 100:
-        digit = nth_digit_hex(n)
-        print(int2hex[digit], end="")
-        n += 1
-    t2 = time.time()
-    print(f"\nelapsed time: {t2 - t1}")
-    t1 = time.time()
-    for n, digit in enumerate(pi_bbp()):
-        if n >= 100:
-            break
-        print(int2hex[digit], end="")
-    t2 = time.time()
-    print(f"\nelapsed time: {t2 - t1}")
+    plt.plot(range(N), t)
+    plt.show()
