@@ -9,7 +9,7 @@ where s_x = \sum_{k=0}^{\infty} \frac{16^{-k}}{8k+x}
 from typing import List, Iterator, Tuple
 
 
-def nth_digit_hex(n: int) -> int:
+def pi_digit(n: int) -> int:
     def sum_x(n: int, x: int, eps: float = 1e-6) -> float:
         """
         :param n:
@@ -117,9 +117,9 @@ def hex2dec(hex_list: List[int]) -> Iterator[int]:
 if __name__ == "__main__":
     int2hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
     hex_list = []
-    N = 10000
+    N = 1000
     for n in range(N):
-        hex_list.append(nth_digit_hex(n))
+        hex_list.append(pi_digit(n))
 
     # take N digits
     print("https://github.com/khanhhhh/pi_digit_extraction")
