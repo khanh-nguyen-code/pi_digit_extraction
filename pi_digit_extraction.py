@@ -50,8 +50,8 @@ def pi_bbp():
     https://possiblywrong.wordpress.com/2017/09/30/digits-of-pi-and-python-generators/
     :return:
     """
-    a, b = 0, 1
-    k = 0
+    a, b = 2, 15
+    k = 1
     while True:
         ak, bk = (120 * k ** 2 + 151 * k + 47,
                   512 * k ** 4 + 1024 * k ** 3 + 712 * k ** 2 + 194 * k + 15)
