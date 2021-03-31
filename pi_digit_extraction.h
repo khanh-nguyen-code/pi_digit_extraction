@@ -15,9 +15,11 @@
 #include <cmath>
 
 namespace extraction {
-    int multiply_mod(int a, int b, int p) {
+    using uint = unsigned int;
+
+    uint multiply_mod(uint a, uint b, uint p) {
         // return a*b mod p
-        int out = 0;
+        uint out = 0;
         a = a % p;
         b = b % p;
         while (b != 0) {
@@ -29,30 +31,21 @@ namespace extraction {
         }
         return out;
     }
-    /*
-    int power_mod(int a, int n, int p) {
-        // return a^n mod p
-        int out = 1;
-        for (int i = 0; i < n; i++) {
-            out *= a;
-            out = out % p;
-        }
-        return out;
-    }
-    */
-    int power_mod(int a, int n, int p) {
+
+    uint power_mod(uint a, uint n, uint p) {
         // return a^n mod p
         if (n == 0) {
             return 1;
         }
-        int out = 1;
+        uint out = 1;
         a = a % p;
         if (a == 0) {
             return 0;
         }
         while (n > 0) {
             if (n % 2 == 1) {
-                out = (out * a) % p;
+                // out = (out * a) % p;
+                out = multiply_mod(out, a, p);
             }
             n /= 2;
             // a = (a * a) % p;
@@ -62,11 +55,10 @@ namespace extraction {
     }
 
 
-
-    float power_frac(int a, int n) {
+    float power_frac(uint a, uint n) {
         // return a^-n
         float out = 1.0;
-        for (int i = 0; i < n; i++) {
+        for (uint i = 0; i < n; i++) {
             out /= float(a);
         }
         return out;
@@ -76,32 +68,32 @@ namespace extraction {
         return x - std::floor(x);
     }
 
-    float sum_x(int n, int x, float eps = 1e-6) {
-        // return the fractional part of  16^n \Sigma_{k=0}^{\infty} \frac{1}{16^k (8k+x)} = 16^n s_x
+    float sum_x(uint n, uint x, float eps = 1e-6) {
+        // return the fractional part of
+        // 16^n \Sigma_{k=0}^{\infty} \frac{1}{16^k (8k+x)} = 16^n s_x
+
         // finite sum
         float s1 = 0.0;
-        {
-            for (int k = 0; k <= n; k++) {
-                int numerator = power_mod(16, n - k, 8 * k + x);
-                int denominator = 8 * k + x;
-                float term = float(numerator) / float(denominator);
-                s1 += term;
-                s1 = fraction(s1);
-            }
-        }
-        // infinite sum
         float s2 = 0.0;
-        {
-            for (int k = n + 1;; k++) {
-                float numerator = power_frac(16, -(n - k));
-                int denominator = 8 * k + x;
-                float term = float(numerator) / float(denominator);
-                if (term <= eps) {
-                    break;
-                }
-                s2 += term;
-            }
+        for (uint k = 0; k <= n; k++) {
+            // finite sum
+            uint numerator = power_mod(16, n - k, 8 * k + x);
+            uint denominator = 8 * k + x;
+            float term = float(numerator) / float(denominator);
+            s1 += term;
+            s1 = fraction(s1);
         }
+        for (uint k = n + 1;; k++) {
+            // infinite sum
+            float numerator = power_frac(16, -(n - k));
+            uint denominator = 8 * k + x;
+            float term = float(numerator) / float(denominator);
+            if (term <= eps) {
+                break;
+            }
+            s2 += term;
+        }
+
         return fraction(s1 + s2);
     }
 
