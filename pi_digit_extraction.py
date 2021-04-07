@@ -112,37 +112,3 @@ def hex2dec(hex_list: List[int]) -> Iterator[int]:
 
     while True:
         yield mul10(hex_list)
-
-
-if __name__ == "__main__":
-    int2hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
-    hex_list = []
-    N = 10000
-    for n in range(N):
-        hex_list.append(nth_digit_hex(n))
-
-    # take N digits
-    print("https://github.com/khanhhhh/pi_digit_extraction")
-    print("3.", end="", flush=True)
-    dec = hex2dec(hex_list)
-    for n in range(N):
-        print(next(dec), end="", flush=True)
-    print()
-
-    """
-    # take as most as possible number of correct digits
-    hex_list_lower = [*hex_list, 0]
-    hex_list_upper = [*hex_list, 15]
-
-    dec_lower = hex2dec(hex_list_lower)
-    dec_upper = hex2dec(hex_list_upper)
-
-    print("3.", end="", flush=True)
-    while True:
-        digit_lower = next(dec_lower)
-        digit_upper = next(dec_upper)
-        if digit_lower != digit_upper:
-            break
-        print(digit_lower, end="", flush=True)
-    print()
-    """
