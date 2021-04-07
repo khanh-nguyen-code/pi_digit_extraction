@@ -9,7 +9,7 @@ where s_x = \sum_{k=0}^{\infty} \frac{16^{-k}}{8k+x}
 from typing import List, Iterator, Tuple
 
 
-def nth_digit_hex(n: int) -> int:
+def pi_digit(n: int) -> int:
     def sum_x(n: int, x: int, eps: float = 1e-6) -> float:
         """
         :param n:
@@ -94,7 +94,19 @@ def hex2dec(hex_list: List[int]) -> Iterator[int]:
     :return:
     """
 
+    def reduce(hex_list: List[int]) -> List[int]:
+        while True:
+            if len(hex_list) == 0:
+                break
+            if hex_list[len(hex_list) - 1] != 0:
+                break
+            hex_list = hex_list[:len(hex_list) - 1]
+        return hex_list
+
     def canvas_add(list1: List[int], list2: List[int]):
+        if len(list1) != len(list2):
+            raise Exception("list1 and list2 must have the same length")
+
         def adder3(a: int, b: int, c: int) -> Tuple[int, int]:
             return divmod(a + b + c, 16)
 
@@ -111,4 +123,41 @@ def hex2dec(hex_list: List[int]) -> Iterator[int]:
         return carry
 
     while True:
+        hex_list = reduce(hex_list)
+        if len(hex_list) == 0:
+            break
         yield mul10(hex_list)
+
+
+if __name__ == "__main__":
+    int2hex = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
+    hex_list = []
+    N = 10000
+    for n in range(N):
+        hex_list.append(nth_digit_hex(n))
+
+    # take N digits
+    print("https://github.com/khanhhhh/pi_digit_extraction")
+    print("3.", end="", flush=True)
+    dec = hex2dec(hex_list)
+    for n in range(N):
+        print(next(dec), end="", flush=True)
+    print()
+
+    """
+    # take as most as possible number of correct digits
+    hex_list_lower = [*hex_list, 0]
+    hex_list_upper = [*hex_list, 15]
+
+    dec_lower = hex2dec(hex_list_lower)
+    dec_upper = hex2dec(hex_list_upper)
+
+    print("3.", end="", flush=True)
+    while True:
+        digit_lower = next(dec_lower)
+        digit_upper = next(dec_upper)
+        if digit_lower != digit_upper:
+            break
+        print(digit_lower, end="", flush=True)
+    print()
+    """
