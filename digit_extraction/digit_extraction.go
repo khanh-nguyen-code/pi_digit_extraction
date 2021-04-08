@@ -31,13 +31,6 @@ func floatFrac(x float64) float64 {
 	return f
 }
 
-var sixteen = big.NewInt(16)
-var eight = big.NewInt(8)
-var one = big.NewInt(1)
-var four = big.NewInt(4)
-var five = big.NewInt(5)
-var six = big.NewInt(6)
-
 // sumX : the fractional part of
 //        16^n s_x = 16^n \sum_{k=0}^{\infty} \frac{1}{16^k (8k+x)}
 func sumX(n *big.Int, x *big.Int) float64 {
@@ -45,30 +38,30 @@ func sumX(n *big.Int, x *big.Int) float64 {
 	var k = big.NewInt(0)
 	var s1 float64 = 0
 	for k.Cmp(n) != +1 {
-		denominator := (&big.Int{}).Add((&big.Int{}).Mul(eight, k), x)              // 8k+x
-		numerator := (&big.Int{}).Exp(sixteen, (&big.Int{}).Sub(n, k), denominator) // 16^{n-k} mod 8k+x
+		denominator := (&big.Int{}).Add((&big.Int{}).Mul(i8, k), x)             // 8k+x
+		numerator := (&big.Int{}).Exp(i16, (&big.Int{}).Sub(n, k), denominator) // 16^{n-k} mod 8k+x
 		s1 += ratFrac(numerator, denominator)
 		s1 = floatFrac(s1)
-		k = k.Add(k, one)
+		k = k.Add(k, i1)
 	}
 	// infinite sum
 	var s2 float64 = 0
 	for {
-		denominator := (&big.Int{}).Add((&big.Int{}).Mul(eight, k), x)         // 8k+x
-		numeratorInv := (&big.Int{}).Exp(sixteen, (&big.Int{}).Sub(k, n), nil) // 16^{k-n}
+		denominator := (&big.Int{}).Add((&big.Int{}).Mul(i8, k), x)        // 8k+x
+		numeratorInv := (&big.Int{}).Exp(i16, (&big.Int{}).Sub(k, n), nil) // 16^{k-n}
 		denominator = denominator.Mul(denominator, numeratorInv)
 		if denominator.BitLen() > floatUnit {
 			break
 		}
 		s2 += 1 / float64(denominator.Int64())
-		k = k.Add(k, one)
+		k = k.Add(k, i1)
 	}
 	return floatFrac(s1 + s2)
 }
 
 // PiBPP : return n-th digit of PI in hexadecimal
 func PiBPP(n *big.Int) int {
-	var frac = floatFrac(4*sumX(n, one) - 2*sumX(n, four) - sumX(n, five) - sumX(n, six))
+	var frac = floatFrac(4*sumX(n, i1) - 2*sumX(n, i4) - sumX(n, i5) - sumX(n, i6))
 	var digit = int(16 * frac)
 	return digit
 }

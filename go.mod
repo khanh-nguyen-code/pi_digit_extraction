@@ -1,3 +1,3 @@
 module github.com/khanhhhh/pi_digit_extraction
 
-go 1.15
+        go 1.15
