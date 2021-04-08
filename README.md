@@ -10,6 +10,6 @@ https://thestarman.pcministry.com/math/pi/picalcs.htm
 
 ``` bash
 python pi_bbp.py <number of digits> | python hex2dec.py | python compare.py 
-python pi_gibbons.py <number of digits> | python compare.py all ok
+python pi_gibbons.py <number of digits> | python compare.py
  
 ```
