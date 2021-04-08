@@ -50,15 +50,21 @@ def pi_bbp_iter():
     https://possiblywrong.wordpress.com/2017/09/30/digits-of-pi-and-python-generators/
     :return:
     """
-    a, b = 2, 15
-    k = 1
-    while True:
-        ak, bk = (120 * k ** 2 + 151 * k + 47,
-                  512 * k ** 4 + 1024 * k ** 3 + 712 * k ** 2 + 194 * k + 15)
-        a, b = (16 * a * bk + ak * b, b * bk)
-        digit, a = divmod(a, b)
-        yield digit
-        k = k + 1
+
+    def _pi_bbp_iter():
+        a, b = 0, 1
+        k = 0
+        while True:
+            ak, bk = (120 * k ** 2 + 151 * k + 47,
+                      512 * k ** 4 + 1024 * k ** 3 + 712 * k ** 2 + 194 * k + 15)
+            a, b = (16 * a * bk + ak * b, b * bk)
+            digit, a = divmod(a, b)
+            yield digit
+            k = k + 1
+
+    i = _pi_bbp_iter()
+    next(i)  # skip 3
+    return i
 
 
 def pi_gibbons_iter(base: int = 10) -> Iterator[int]:
