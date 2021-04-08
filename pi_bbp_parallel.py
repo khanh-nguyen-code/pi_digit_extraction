@@ -1,8 +1,6 @@
 import multiprocessing as mp
-import os
 import random
 import sys
-from typing import List
 
 from digit_extraction import pi_bbp
 
@@ -22,4 +20,3 @@ if __name__ == "__main__":
     hex2char = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
     for digit in hex_list:
         print(f"{hex2char[digit]}")
-
