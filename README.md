@@ -9,5 +9,7 @@ https://thestarman.pcministry.com/math/pi/picalcs.htm
 # TEST
 
 ``` bash
-python3 main.py <number of digits> | python3 compare.py 
+python pi_bbp.py <number of digits> | python hex2dec.py | python compare.py 
+python pi_gibbons.py <number of digits> | python compare.py all ok
+ 
 ```
