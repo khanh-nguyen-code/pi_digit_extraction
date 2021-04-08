@@ -6,4 +6,8 @@ Calculate digits of pi using spigot algorithm on BPP formula
 
 https://thestarman.pcministry.com/math/pi/picalcs.htm
 
+# TEST
 
+``` bash
+python3 main.py <number of digits> | python3 compare.py 
+```

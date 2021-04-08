@@ -1,3 +1,4 @@
+import sys
 import multiprocessing as mp
 import random
 from typing import List, Iterator, Tuple
@@ -56,7 +57,9 @@ def hex2dec(hex_list: List[int]) -> Iterator[int]:
 
 if __name__ == "__main__":
     pool = mp.Pool()
-    N = 1000
+    N = 1
+    if len(sys.argv) >= 2:
+        N = int(sys.argv[1])
     index_list = list(range(N))
     random.shuffle(index_list)
     hex_list = pool.map(pi_digit, index_list)
