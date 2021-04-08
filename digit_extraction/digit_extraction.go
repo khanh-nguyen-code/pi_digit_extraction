@@ -45,8 +45,8 @@ func sumX(n *big.Int, x *big.Int) float64 {
 	var k = big.NewInt(0)
 	var s1 float64 = 0
 	for k.Cmp(n) != +1 {
-		denominator := (&big.Int{}).Add((&big.Int{}).Mul(eight, k), x)
-		numerator := (&big.Int{}).Exp(sixteen, (&big.Int{}).Sub(n, k), denominator)
+		denominator := (&big.Int{}).Add((&big.Int{}).Mul(eight, k), x)              // 8k+x
+		numerator := (&big.Int{}).Exp(sixteen, (&big.Int{}).Sub(n, k), denominator) // 16^{n-k} mod 8k+x
 		s1 += ratFrac(numerator, denominator)
 		s1 = floatFrac(s1)
 		k = k.Add(k, one)
@@ -54,8 +54,8 @@ func sumX(n *big.Int, x *big.Int) float64 {
 	// infinite sum
 	var s2 float64 = 0
 	for {
-		denominator := (&big.Int{}).Add((&big.Int{}).Mul(eight, k), x)
-		numeratorInv := (&big.Int{}).Exp(sixteen, (&big.Int{}).Sub(k, n), nil)
+		denominator := (&big.Int{}).Add((&big.Int{}).Mul(eight, k), x)         // 8k+x
+		numeratorInv := (&big.Int{}).Exp(sixteen, (&big.Int{}).Sub(k, n), nil) // 16^{k-n}
 		denominator = denominator.Mul(denominator, numeratorInv)
 		if denominator.BitLen() > floatUnit {
 			break
