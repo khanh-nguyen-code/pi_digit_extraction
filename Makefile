@@ -10,4 +10,4 @@ pi_bbp_build:
 
 hex2dec_build:
 	rm -f hex2dec
-	g++ -g -std=c++17 hex2dec.cpp -o hex2dec
+	g++ -O3 -std=c++17 hex2dec.cpp -o hex2dec
