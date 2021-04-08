@@ -63,5 +63,5 @@ def pi_gibbons_iter(base: int = 10) -> Iterator[int]:
                                     (q * (7 * k + 2) + r * l) // (t * l), l + 2)
 
     i = _pi_gibbons_iter(base=base)
-    next(i) # skip 3
+    next(i)  # skip 3
     return i

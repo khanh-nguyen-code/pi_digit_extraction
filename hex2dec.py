@@ -1,9 +1,5 @@
 import sys
-import multiprocessing as mp
-import random
 from typing import List, Iterator, Tuple
-
-from digit_extraction import pi_gibbons_iter
 
 
 def hex2dec(hex_list: List[int]) -> Iterator[int]:

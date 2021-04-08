@@ -1,21 +1,39 @@
 import sys
-import multiprocessing as mp
-import random
-from typing import List, Iterator, Tuple
+from typing import Tuple
 
-from digit_extraction import pi_gibbons_iter, pi_bbp
+from digit_extraction import pi_bbp
+from pipeline import pipeline
 
 if __name__ == "__main__":
     N = 1
     if len(sys.argv) >= 2:
         N = int(sys.argv[1])
 
-    index_list = list(range(N))
-    random.shuffle(index_list)
-    pool = mp.Pool()
-    hex_list = pool.map(pi_bbp, index_list)
-    pool.close()
-    hex_list = [v for i, v in sorted(zip(index_list, hex_list))]
+
+    def mapping(n: int) -> Tuple[int, int]:
+        return n, pi_bbp(n)
+
+
+    data_in = iter(range(N))
+    data_out = pipeline(
+        data_in=data_in,
+        mapping_list=[mapping],
+        queue_size_list=[64, 64],
+    )
+    buffer = {}
+    next_n = 0
     hex2char = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"]
-    for h in hex_list:
-        print(f"{hex2char[h]}")
+    for _ in range(N):
+        digit = None
+        if next_n in buffer:
+            digit = buffer[next_n]
+            buffer.pop(next_n)
+        else:
+            while True:
+                n, d = next(data_out)
+                if next_n == n:
+                    digit = d
+                    break
+                else:
+                    buffer[n] = d
+        print(f"{hex2char[digit]}")
