@@ -3,7 +3,7 @@ import multiprocessing as mp
 import random
 from typing import List, Iterator, Tuple
 
-from pi_digit_extraction import pi_digit
+from digit_extraction import pi_gibbons_iter
 
 
 def hex2dec(hex_list: List[int]) -> Iterator[int]:
@@ -56,17 +56,12 @@ def hex2dec(hex_list: List[int]) -> Iterator[int]:
 
 
 if __name__ == "__main__":
-    pool = mp.Pool()
-    N = 1
-    if len(sys.argv) >= 2:
-        N = int(sys.argv[1])
-    index_list = list(range(N))
-    random.shuffle(index_list)
-    hex_list = pool.map(pi_digit, index_list)
-    pool.close()
-    hex_list = [v for i, v in sorted(zip(index_list, hex_list))]
-    # take N digits
-    dec = hex2dec(hex_list)
-    for n in range(N):
-        print(next(dec), end="", flush=True)
+    char_list = input().split("\n")[0]
+    char2hex = {
+        "0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "A": 10, "B": 11, "C": 12, "D": 13, "E": 14, "F": 15,
+    }
+    hex_list = [char2hex[char] for char in char_list]
+    dec_iter = hex2dec(hex_list)
+    for _ in range(len(hex_list)):
+        print(f"{next(dec_iter)}", end="")
     print()
