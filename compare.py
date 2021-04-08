@@ -7,7 +7,10 @@ def read_pi(filename: str) -> str:
     return pi
 
 
-file_reference = "pi_reference.txt"
+file_reference = "pi_dec_1m.txt"
+
+if len(sys.argv) >= 2:
+    file_reference = sys.argv[1]
 
 pi_reference = read_pi(file_reference)
 i = 0
