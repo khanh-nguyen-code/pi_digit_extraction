@@ -47,7 +47,7 @@ func main() {
 			digitChan <- result
 			n = n.Add(n, one)
 		}
-		close(notify)
+		//close(notify)
 	}
 	go schedulerFunc()
 
@@ -61,5 +61,6 @@ func main() {
 		fmt.Println(hex2char[digit])
 		n = n.Add(n, one)
 	}
+	close(notify)
 	close(digitChan)
 }
