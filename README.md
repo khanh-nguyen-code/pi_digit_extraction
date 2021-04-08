@@ -11,7 +11,7 @@ https://pi2e.ch/blog/2017/03/10/pi-digits-download/
 - generator is hexadecimal
 ```
 <generator> <number of digits> | <comparator> pi_hex_1m.txt
-<generator> <number of digits> | <converter> | <comparator> pi_dec_1m.txt
+<generator> <number of digits> | <converter> <number of digits> | <comparator> pi_dec_1m.txt
 ```
 
 - generator is decimal
@@ -56,5 +56,5 @@ compare.py
 
 ```bash
 make
-./pi_bbp_parallel 1000 | ./hex2dec | python compare.py pi_dec_1m.txt
+./pi_bbp_parallel 1000 | ./hex2dec 1000 | python compare.py pi_dec_1m.txt
 ```
