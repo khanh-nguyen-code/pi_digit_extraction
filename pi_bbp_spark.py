@@ -1,3 +1,4 @@
+import math
 import sys
 
 import pyspark
@@ -13,7 +14,7 @@ spark = pyspark.sql.SparkSession.builder \
     .getOrCreate()
 
 df = spark.sparkContext \
-    .parallelize(range(N)) \
+    .parallelize(range(N), numSlices=int(math.sqrt(N))) \
     .map(pi_bbp) \
     .zipWithIndex().cache()
 
