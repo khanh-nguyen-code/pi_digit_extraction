@@ -66,7 +66,6 @@ if __name__ == "__main__":
     hex_list = pool.map(pi_bbp, index_list)
     pool.close()
     hex_list = [v for i, v in sorted(zip(index_list, hex_list))]
-    hex2char = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"]
-    for h in hex_list:
-        print(f"{hex2char[h]}", end="")
-    print()
+    dec_iter = hex2dec(hex_list)
+    for _ in range(len(hex_list)):
+        print(f"{next(dec_iter)}")
