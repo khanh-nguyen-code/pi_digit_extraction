@@ -47,7 +47,7 @@ func main() {
 			digitChan <- result
 			n = n.Add(n, one)
 		}
-
+		close(notify)
 	}
 	go schedulerFunc()
 
