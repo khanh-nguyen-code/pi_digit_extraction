@@ -63,8 +63,6 @@ if __name__ == "__main__":
     pool.close()
     hex_list = [v for i, v in sorted(zip(index_list, hex_list))]
     # take N digits
-    print("https://github.com/khanhhhh/pi_digit_extraction")
-    print("3.", end="", flush=True)
     dec = hex2dec(hex_list)
     for n in range(N):
         print(next(dec), end="", flush=True)

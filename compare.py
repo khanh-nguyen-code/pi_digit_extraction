@@ -3,7 +3,6 @@ import sys
 def read_pi(filename: str) -> str:
     pi = ""
     with open(filename, "r") as f:
-        next(f) # skip 1 line header
         pi = next(f).split("\n")[0]
     return pi
 
