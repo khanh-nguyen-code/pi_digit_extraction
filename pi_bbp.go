@@ -7,11 +7,12 @@ import (
 	"math/big"
 )
 
-var one = big.NewInt(1)
-
-var hex2char = [16]string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"}
-
 func main() {
+
+	var one = big.NewInt(1)
+
+	var hex2char = [16]string{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"}
+
 	flag.Parse()
 	args := flag.Args()
 	var N = big.NewInt(1)
