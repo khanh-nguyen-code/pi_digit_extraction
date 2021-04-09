@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/khanhhhh/pi_digit_extraction/digit_extraction"
 	"math/big"
+	"runtime"
 )
 
 func main() {
@@ -23,7 +24,7 @@ func main() {
 		}
 	}
 
-	var maxConcurrent = 12
+	var maxConcurrent = runtime.NumCPU()
 
 	// digit channel, it holds (<-chan int) containing the result
 	var digitChan = make(chan (<-chan int), maxConcurrent)
