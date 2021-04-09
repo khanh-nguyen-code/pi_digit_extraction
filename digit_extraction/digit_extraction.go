@@ -65,7 +65,7 @@ func PiBPP(n *big.Int) int {
 	frac.Add(frac, sum1.Mul(sum1, i4))
 	frac.Sub(frac, sum4.Mul(sum4, i2))
 	frac.Sub(frac, sum5)
-	frac.Sub(frac, sum6)
+	frac.Sub(frac, sum6) // frac = 4sum1 - 2sum4 - sum5 - sum6
 	frac.Mod(frac, modulo)
 	frac.Mul(i16, frac)
 	frac.Rsh(frac, shift)
