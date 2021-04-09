@@ -20,15 +20,14 @@ func sumX(n *big.Int, x *big.Int, eps int) *big.Int {
 	for k.Cmp(n) != +1 {
 		denominator := (&big.Int{}).Add((&big.Int{}).Mul(i8, k), x)             // 8k+x
 		numerator := (&big.Int{}).Exp(i16, (&big.Int{}).Sub(n, k), denominator) // 16^{n-k} mod 8k+x
-		numerator = numerator.Mod(numerator, denominator)
-		numerator = numerator.Lsh(numerator, shift)
-		numerator = numerator.Div(numerator, denominator)
-		s1 = s1.Add(s1, numerator)
-		s1 = s1.Mod(s1, modulo)
+		numerator = numerator.Mod(numerator, denominator)                       // remove decimal part from numerator / denominator
+		numerator = numerator.Lsh(numerator, shift)                             // shift left: multiply by modulo
+		term := numerator.Div(numerator, denominator)                           // integer division
+		s1 = s1.Add(s1, term)                                                   // add to the sum
+		s1 = s1.Mod(s1, modulo)                                                 // remove decimal part
 		k = k.Add(k, i1)
 	}
 	// infinite sum
-	var s2 = big.NewInt(0)
 	for {
 		denominator := (&big.Int{}).Add((&big.Int{}).Mul(i8, k), x)        // 8k+x
 		numeratorInv := (&big.Int{}).Exp(i16, (&big.Int{}).Sub(k, n), nil) // 16^{k-n}
@@ -36,10 +35,12 @@ func sumX(n *big.Int, x *big.Int, eps int) *big.Int {
 		if denominator.Cmp(modulo) == +1 {
 			break
 		}
-		s2 = s2.Add(s2, (&big.Int{}).Div(modulo, denominator))
+		numerator := (&big.Int{}).Add(modulo, i0)     // numerator after shift left = modulo
+		term := numerator.Div(numerator, denominator) // integer division
+		s1 = s1.Add(s1, term)
 		k = k.Add(k, i1)
 	}
-	return (&big.Int{}).Mod((&big.Int{}).Add(s1, s2), modulo)
+	return s1.Mod(s1, modulo)
 }
 
 // PiBPP : return n-th digit of PI in hexadecimal
