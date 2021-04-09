@@ -1,6 +1,6 @@
 import sys
 
-from digit_extraction import pi_bbp
+from digit_extraction.digit_extraction import pi_bbp
 
 N = 1
 if len(sys.argv) >= 2:

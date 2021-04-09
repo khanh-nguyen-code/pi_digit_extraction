@@ -1,6 +1,6 @@
 import sys
 
-from digit_extraction import pi_gibbons_iter
+from digit_extraction.digit_extraction import pi_gibbons_iter
 
 base = 10
 N = 1

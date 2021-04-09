@@ -2,7 +2,7 @@ import multiprocessing as mp
 import random
 import sys
 
-from digit_extraction import pi_bbp
+from digit_extraction.digit_extraction import pi_bbp
 
 if __name__ == "__main__":
     N = 1

@@ -24,7 +24,7 @@ func main() {
 		}
 	}
 
-	var maxConcurrent = runtime.NumCPU()
+	var maxConcurrent = 4*runtime.NumCPU()
 
 	// digit channel, it holds (<-chan int) containing the result
 	var digitChan = make(chan (<-chan int), maxConcurrent)
