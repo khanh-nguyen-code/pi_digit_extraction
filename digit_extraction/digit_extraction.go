@@ -57,7 +57,7 @@ func PiBPP(n *big.Int) int {
 	var eps uint = 12
 	var shift = eps + uint(n.BitLen())
 	var modulo = (&big.Int{}).Lsh(i1, shift)
-	var frac = (&big.Int{}).Add(modulo, i0)
+	var frac = (&big.Int{}).Mul(modulo, i8)
 	var sum1 = sumX(n, i1, eps)
 	var sum4 = sumX(n, i4, eps)
 	var sum5 = sumX(n, i5, eps)
