@@ -16,15 +16,15 @@ func sumX(n *big.Int, x *big.Int, eps int) *big.Int {
 	// finite sum
 	var shift = uint(eps + n.BitLen())
 	var modulo = (&big.Int{}).Lsh(i1, shift)
-	var s1 = big.NewInt(0)
+	var sum = big.NewInt(0)
 	for k.Cmp(n) != +1 {
 		denominator := (&big.Int{}).Add((&big.Int{}).Mul(i8, k), x)             // 8k+x
 		numerator := (&big.Int{}).Exp(i16, (&big.Int{}).Sub(n, k), denominator) // 16^{n-k} mod 8k+x
 		numerator = numerator.Mod(numerator, denominator)                       // remove decimal part from numerator / denominator
 		numerator = numerator.Lsh(numerator, shift)                             // shift left: multiply by modulo
 		term := numerator.Div(numerator, denominator)                           // integer division
-		s1 = s1.Add(s1, term)                                                   // add to the sum
-		s1 = s1.Mod(s1, modulo)                                                 // remove decimal part
+		sum = sum.Add(sum, term)                                                // add to the sum
+		sum = sum.Mod(sum, modulo)                                              // remove decimal part
 		k = k.Add(k, i1)
 	}
 	// infinite sum
@@ -37,10 +37,10 @@ func sumX(n *big.Int, x *big.Int, eps int) *big.Int {
 		}
 		numerator := (&big.Int{}).Add(modulo, i0)     // numerator after shift left = modulo
 		term := numerator.Div(numerator, denominator) // integer division
-		s1 = s1.Add(s1, term)
+		sum = sum.Add(sum, term)
 		k = k.Add(k, i1)
 	}
-	return s1.Mod(s1, modulo)
+	return sum.Mod(sum, modulo)
 }
 
 // PiBPP : return n-th digit of PI in hexadecimal
