@@ -11,8 +11,8 @@ import (
 // result is represented as a fixed-point number.
 // example: if shift is 2
 // 			big.Int 12345 is equivalent to 123.45
-func sumX(n *big.Int, x *big.Int, eps int) *big.Int {
-	var shift = uint(eps + n.BitLen())
+func sumX(n *big.Int, x *big.Int, eps uint) *big.Int {
+	var shift = eps + uint(n.BitLen())
 	var modulo = (&big.Int{}).Lsh(i1, shift)
 	var k = big.NewInt(0)
 	var numerator *big.Int
@@ -54,8 +54,8 @@ func sumX(n *big.Int, x *big.Int, eps int) *big.Int {
 
 // PiBPP : return n-th digit of PI in hexadecimal
 func PiBPP(n *big.Int) int {
-	var eps = 12
-	var shift = uint(eps + n.BitLen())
+	var eps uint = 12
+	var shift = eps + uint(n.BitLen())
 	var modulo = (&big.Int{}).Lsh(i1, shift)
 	var frac = big.NewInt(0)
 	frac = frac.Add(frac, (&big.Int{}).Mul(i4, sumX(n, i1, eps)))
