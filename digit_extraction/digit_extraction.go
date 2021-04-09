@@ -63,12 +63,12 @@ func PiBPP(n *big.Int) int {
 	var sum5 = sumX(n, i5, eps)
 	var sum6 = sumX(n, i6, eps)
 	frac.Add(frac, sum1.Mul(sum1, i4))
-	frac.Sub(frac, sum4.Mul(sum1, i2))
+	frac.Sub(frac, sum4.Mul(sum4, i2))
 	frac.Sub(frac, sum5)
 	frac.Sub(frac, sum6)
-	frac = frac.Mod(frac, modulo)
-	frac = frac.Mul(i16, frac)
-	frac = frac.Rsh(frac, shift)
+	frac.Mod(frac, modulo)
+	frac.Mul(i16, frac)
+	frac.Rsh(frac, shift)
 	var digit = int(frac.Int64())
 	return digit
 }
