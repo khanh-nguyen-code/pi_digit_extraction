@@ -6,6 +6,13 @@ Calculate digits of pi using spigot algorithm on BPP formula to an arbitrary pre
 
 https://pi2e.ch/blog/2017/03/10/pi-digits-download/
 
+# GET N-TH HEX DIGIT
+
+```
+make
+./hex_digit <N>
+```
+
 # TEST
 
 - generator is hexadecimal
