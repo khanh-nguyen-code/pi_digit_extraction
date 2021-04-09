@@ -13,32 +13,41 @@ import (
 // 			big.Int 12345 is equivalent to 123.45
 func sumX(n *big.Int, x *big.Int, eps int) *big.Int {
 	var k = big.NewInt(0)
+	var numerator *big.Int
+	var denominator *big.Int
+	var numeratorInv *big.Int
 	// finite sum
 	var shift = uint(eps + n.BitLen())
 	var modulo = (&big.Int{}).Lsh(i1, shift)
 	var sum = big.NewInt(0)
 	for k.Cmp(n) != +1 {
-		denominator := (&big.Int{}).Add((&big.Int{}).Mul(i8, k), x)             // 8k+x
-		numerator := (&big.Int{}).Exp(i16, (&big.Int{}).Sub(n, k), denominator) // 16^{n-k} mod 8k+x
-		numerator = numerator.Mod(numerator, denominator)                       // remove decimal part from numerator / denominator
-		numerator = numerator.Lsh(numerator, shift)                             // shift left: multiply by modulo
-		term := numerator.Div(numerator, denominator)                           // integer division
-		sum = sum.Add(sum, term)                                                // add to the sum
-		sum = sum.Mod(sum, modulo)                                              // remove decimal part
-		k = k.Add(k, i1)
+		denominator = big.NewInt(8)
+		denominator.Mul(denominator, k)
+		denominator.Add(denominator, x) // 8k+x
+		numerator = (&big.Int{}).Sub(n, k)
+		numerator.Exp(i16, numerator, denominator) // 16^{n-k} mod 8k+x
+		numerator.Mod(numerator, denominator)      // remove decimal part from numerator / denominator
+		numerator.Lsh(numerator, shift)            // shift left: multiply by modulo
+		numerator.Div(numerator, denominator)      // integer division
+		sum.Add(sum, numerator)                    // add to the sum
+		sum.Mod(sum, modulo)                       // remove decimal part
+		k.Add(k, i1)
 	}
 	// infinite sum
 	for {
-		denominator := (&big.Int{}).Add((&big.Int{}).Mul(i8, k), x)        // 8k+x
-		numeratorInv := (&big.Int{}).Exp(i16, (&big.Int{}).Sub(k, n), nil) // 16^{k-n}
-		denominator = denominator.Mul(denominator, numeratorInv)
-		if denominator.Cmp(modulo) == +1 {
+		denominator = big.NewInt(8)
+		denominator.Mul(denominator, k)
+		denominator.Add(denominator, x) // 8k+x
+		numeratorInv = (&big.Int{}).Sub(k, n)
+		numeratorInv.Exp(i16, numeratorInv, nil) // 16^{k-n}
+		denominator.Mul(denominator, numeratorInv)
+		if denominator.Cmp(modulo) == +1 { // quotient is zero after that, break
 			break
 		}
-		numerator := (&big.Int{}).Add(modulo, i0)     // numerator after shift left = modulo
-		term := numerator.Div(numerator, denominator) // integer division
-		sum = sum.Add(sum, term)
-		k = k.Add(k, i1)
+		numerator = (&big.Int{}).Add(modulo, i0) // numerator after shift left = modulo
+		numerator.Div(numerator, denominator)    // integer division
+		sum.Add(sum, numerator)
+		k.Add(k, i1)
 	}
 	return sum.Mod(sum, modulo)
 }
