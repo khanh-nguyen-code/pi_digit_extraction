@@ -19,7 +19,7 @@ make
 
 ```
 <generator> <number of digits> | <comparator> pi_hex_1m.txt
-<generator> <number of digits> | <converter> <number of digits> | <comparator> pi_dec_1m.txt
+<generator> <number of digits> | <converter> | <comparator> pi_dec_1m.txt
 ```
 
 - generator is decimal
@@ -53,7 +53,6 @@ pi_gibbons_iter.py
 - `<converter>`
 
 ```
-hex2dec.py
 hex2dec.cpp
 hex2dec.js
 ```
@@ -70,5 +69,5 @@ compare.py
 
 ```bash
 make
-./pi_bbp_parallel 1000 | ./hex2dec 1000 | python compare.py pi_dec_1m.txt
+./pi_bbp_parallel 1000 | ./hex2dec | python compare.py pi_dec_1m.txt
 ```
