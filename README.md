@@ -55,6 +55,7 @@ pi_gibbons_iter.py
 ```
 hex2dec.py
 hex2dec.cpp
+hex2dec.js
 ```
 
 ## COMPARE WITH REFERENCES
