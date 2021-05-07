@@ -21,10 +21,11 @@ hex2char = Dict([
     15 => "f",
 ])
 
-n = UInt64(1)
+N = UInt64(1)
 if length(ARGS) ≥ 1
-    n = parse(UInt64, ARGS[1])
+    N = parse(UInt64, ARGS[1])
 end
-
-digit = DigitExtraction.pi_bbp(n)
-println("$(hex2char[digit])")
+for n ∈ 0:N-1
+    digit = DigitExtraction.pi_bbp(n)
+    println("$(hex2char[digit])")
+end
