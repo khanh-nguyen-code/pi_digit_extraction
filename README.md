@@ -10,25 +10,24 @@ https://pi2e.ch/blog/2017/03/10/pi-digits-download/
 
 calculate n-th hex digit
 
-- python hex_digit.py <N>
+- hex_digit.py
 
-# TEST
 
-- <hex generator> <number of digits> | <comparator> pi_hex_1m.txt
-- <hex generator> <number of digits> | <converter> | <comparator> pi_dec_1m.txt
-- <dec generator> <number of digits> | <comparator> pi_dec_1m.txt
+## HEX GENERATOR
 
-## <hex generator>
+generate hex digit indefinitely
 
-- python pi_bbp.py
+- pi_bbp.py
 
-- python pi_bbp_parallel.py
+- pi_bbp_parallel.py
 
-- python pi_bbp_iter.py
+- pi_bbp_iter.py
 
-## <dec generator>
+## dec generator
 
-- python pi_gibbons_iter.py
+generate dec digit indefinitely
+
+- pi_gibbons_iter.py
 
 ## CONVERT HEX TO DEC
 
@@ -36,4 +35,4 @@ calculate n-th hex digit
 
 ## COMPARE WITH REFERENCES
 
-- python compare.py
+- compare.py
