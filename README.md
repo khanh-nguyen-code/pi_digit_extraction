@@ -8,66 +8,32 @@ https://pi2e.ch/blog/2017/03/10/pi-digits-download/
 
 # GET N-TH HEX DIGIT
 
-```
-make
-./hex_digit <N>
-```
+calculate n-th hex digit
+
+- python hex_digit.py <N>
 
 # TEST
 
-- generator is hexadecimal
+- <hex generator> <number of digits> | <comparator> pi_hex_1m.txt
+- <hex generator> <number of digits> | <converter> | <comparator> pi_dec_1m.txt
+- <dec generator> <number of digits> | <comparator> pi_dec_1m.txt
 
-```
-<generator> <number of digits> | <comparator> pi_hex_1m.txt
-<generator> <number of digits> | <converter> | <comparator> pi_dec_1m.txt
-```
+## <hex generator>
 
-- generator is decimal
+- python pi_bbp.py
 
-```
-<generator> <number of digits> | <comparator> pi_dec_1m.txt
-```
+- python pi_bbp_parallel.py
 
-## GENERATE HEX DIGITS
+- python pi_bbp_iter.py
 
-- `<generator>`
+## <dec generator>
 
-```
-pi_bbp.py
-pi_bbp_parallel.py
-pi_bbp_iter.py
-pi_bbp.go
-pi_bbp_parallel.go
-```  
-
-## GENERATE DEC DIGITS
-
-- `<generator>`
-
-```
-pi_gibbons_iter.py
-```
+- python pi_gibbons_iter.py
 
 ## CONVERT HEX TO DEC
 
-- `<converter>`
-
-```
-hex2dec.cpp
-hex2dec.js
-```
+- hex2dec.cpp
 
 ## COMPARE WITH REFERENCES
 
-- `<comparator>`
-
-```
-compare.py
-```
-
-# EXAMPLE
-
-```bash
-make
-./pi_bbp_parallel 1000 | ./hex2dec | python compare.py pi_dec_1m.txt
-```
+- python compare.py
